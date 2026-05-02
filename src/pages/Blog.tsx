@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Clock, ArrowRight, Search } from 'lucide-react';
+import { SEO } from '../lib/seo';
 
 const categories = ['All', 'Excel Mastery', 'Power Platform', 'Business Automation', 'Website & Digital'];
 
@@ -108,6 +109,12 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="The Ops Playbook - Business Automation & Excel Tips"
+        description="Learn Excel automation, Power Platform, workflow automation, and website development for Indian SMBs. Read actionable guides and case studies."
+        canonical="/blog"
+        keywords="Excel VBA tutorial, Power Automate guide, business automation, workflow automation, excel tips, power platform"
+      />
       {/* Header */}
       <div className="bg-dark-950 pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

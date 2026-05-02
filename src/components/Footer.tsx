@@ -1,4 +1,5 @@
 import { Zap, Mail, Phone, MapPin, Youtube, Linkedin, Twitter } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -7,14 +8,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <a href="/" className="flex items-center gap-2 mb-4">
+            <Link to="/" className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
                 <Zap size={16} className="text-white" />
               </div>
               <span className="font-syne font-bold text-lg text-white">
                 OpsForge<span className="text-accent">.</span>
               </span>
-            </a>
+            </Link>
             <p className="text-sm leading-relaxed mb-5 text-dark-500">
               We build digital systems for Indian SMBs — websites, automations, and Power Apps — that pay for themselves in 30 days.
             </p>
@@ -42,7 +43,7 @@ export default function Footer() {
                 ['Workflow Automation', '/services/workflow'],
               ].map(([label, href]) => (
                 <li key={label}>
-                  <a href={href} className="hover:text-accent transition-colors">{label}</a>
+                  <Link to={href} className="hover:text-accent transition-colors">{label}</Link>
                 </li>
               ))}
             </ul>
@@ -60,7 +61,7 @@ export default function Footer() {
                 ['Free Process Audit', '/contact'],
               ].map(([label, href]) => (
                 <li key={label}>
-                  <a href={href} className="hover:text-accent transition-colors">{label}</a>
+                  <Link to={href} className="hover:text-accent transition-colors">{label}</Link>
                 </li>
               ))}
             </ul>

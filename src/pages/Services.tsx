@@ -1,4 +1,5 @@
 import { Globe, FileSpreadsheet, LayoutGrid, Workflow, ArrowRight, CheckCircle } from 'lucide-react';
+import { SEO } from '../lib/seo';
 
 const services = [
   {
@@ -78,6 +79,11 @@ const services = [
 export default function Services() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="Our Services - Website Design, Excel Automation, Power Apps"
+        description="Website development, Excel VBA automation, Power Platform apps, and workflow automation for Indian SMBs. Fast, affordable, results-driven."
+        canonical="/services"
+      />
       {/* Header */}
       <div className="bg-dark-950 pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

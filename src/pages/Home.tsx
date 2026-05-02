@@ -1,5 +1,6 @@
 import { ArrowRight, CheckCircle, Star, ChevronDown, Play, Globe, FileSpreadsheet, LayoutGrid, Workflow, TrendingUp, Clock, Users, Award, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
+import { SEO, StructuredData, getOrganizationSchema } from '../lib/seo';
 
 const painPoints = [
   {
@@ -170,6 +171,13 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden">
+      <SEO
+        title="Business Automation & Website Development for Indian SMBs"
+        description="Automate your business with Excel VBA, Power Platform, and custom websites. 4-week delivery. See results in 30 days."
+        canonical="/"
+        keywords="business automation, excel vba, power platform, website development, indian sme, business automation india"
+      />
+      <StructuredData data={getOrganizationSchema()} />
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex items-center bg-dark-950 overflow-hidden">
         {/* Background grid */}

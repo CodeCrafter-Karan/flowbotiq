@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Play, ArrowRight, Youtube } from 'lucide-react';
+import { SEO } from '../lib/seo';
 
 const categories = ['All', 'Tutorials', 'Case Studies', 'Shorts', 'Business Tips'];
 
@@ -96,6 +97,11 @@ export default function VideoHub() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="Video Hub - Excel, Power Platform & Business Automation Tutorials"
+        description="Learn business automation, Excel VBA, Power Automate, and workflow optimization through videos. Quick tutorials, case studies, and business tips."
+        canonical="/videos"
+      />
       {/* Header */}
       <div className="bg-dark-950 pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

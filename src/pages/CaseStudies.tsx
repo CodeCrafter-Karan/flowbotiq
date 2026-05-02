@@ -1,4 +1,5 @@
 import { ArrowRight, TrendingUp } from 'lucide-react';
+import { SEO } from '../lib/seo';
 
 const studies = [
   {
@@ -54,6 +55,11 @@ const studies = [
 export default function CaseStudies() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="Case Studies - Real Results from Excel Automation, Websites & Power Apps"
+        description="See how Indian SMBs transformed their business with automation, websites, and Power Platform apps. Real case studies with verified results."
+        canonical="/case-studies"
+      />
       {/* Header */}
       <div className="bg-dark-950 pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

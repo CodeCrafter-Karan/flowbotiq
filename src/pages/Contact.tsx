@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, CheckCircle, Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { saveContactSubmission } from '../lib/supabase';
+import { SEO } from '../lib/seo';
 
 const challenges = [
   'Excel / data work taking too long',
@@ -22,21 +24,43 @@ export default function Contact() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [selectedMagnet, setSelectedMagnet] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone || !selectedChallenge) return;
+    
+    setIsLoading(true);
+    
+    try {
+      // Save to Supabase
+      await saveContactSubmission({
+        name,
+        phone,
+        challenge: selectedChallenge,
+        magnet: selectedMagnet || undefined,
+      });
+    } catch (error) {
+      console.error('Failed to save contact:', error);
+    }
+    
     setStep('success');
-    // In production: save to Supabase and trigger WhatsApp redirect
+    
+    // Redirect to WhatsApp
     const message = encodeURIComponent(`Hi, I just submitted the audit form. I need help with: ${selectedChallenge}. My name is ${name}.`);
     setTimeout(() => {
       window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
+      setIsLoading(false);
     }, 800);
   };
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
+      <SEO
+        title="Free Business Process Audit - Schedule Your Consultation"
+        description="Get a free 15-minute audit of your business operations. Understand bottlenecks and get an honest recommendation on automation and workflow optimization."
+        canonical="/contact"
+      />
       <div className="bg-dark-950 pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
@@ -150,10 +174,10 @@ export default function Contact() {
 
                   <button
                     type="submit"
-                    disabled={!name || !phone || !selectedChallenge}
+                    disabled={!name || !phone || !selectedChallenge || isLoading}
                     className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent hover:bg-accent-600 disabled:bg-dark-300 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all text-sm"
                   >
-                    Send & Open WhatsApp <ArrowRight size={15} />
+                    {isLoading ? 'Saving...' : 'Send & Open WhatsApp'} {!isLoading && <ArrowRight size={15} />}
                   </button>
 
                   <p className="text-center text-xs text-dark-400">
