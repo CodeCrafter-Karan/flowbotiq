@@ -1,0 +1,47 @@
+{
+  "common": {
+    "home": "Home",
+    "services": "Services",
+    "blog": "Blog",
+    "videos": "Video Hub",
+    "caseStudies": "Case Studies",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "getAudit": "Get Free Audit"
+  },
+  "hero": {
+    "title": "Let's build the digital backbone your business needs",
+    "subtitle": "Custom websites, Excel automation, Power Platform apps — built for Indian SMBs. See results in 30 days.",
+    "cta": "Start Free Audit"
+  },
+  "painPoints": {
+    "title": "Your actual problem (probably)",
+    "subtitle": "We've heard these 1,000 times. Here's what happens next:",
+    "manualData": "Manual data entry wastes 3+ hours daily",
+    "manualSolution": "We automate that in 1 week with Excel VBA — zero errors, zero extra hires.",
+    "noSystem": "No system to track leads and follow-ups",
+    "systemSolution": "Custom Power Apps CRM built in Microsoft 365 — you already pay for it.",
+    "website": "Your website looks like it was built in 2015",
+    "websiteSolution": "Fast, mobile-first website live in 4 weeks — designed to rank and convert."
+  },
+  "services": {
+    "title": "What we build",
+    "websites": "Your Business, Online & Selling 24/7",
+    "automation": "Stop Burning Hours on Spreadsheet Work",
+    "powerPlatform": "Enterprise Power at SMB Cost",
+    "workflow": "Stop Using Email as a Workflow Tool"
+  },
+  "footer": {
+    "tagline": "We build digital systems for Indian SMBs — websites, automations, and Power Apps — that pay for themselves in 30 days.",
+    "servicesHeader": "Services",
+    "resourcesHeader": "Resources",
+    "contactHeader": "Contact"
+  },
+  "contact": {
+    "title": "Let's talk about your business.",
+    "subtitle": "15 minutes. No pitch. Just an honest look at what would help most — and whether we're the right fit.",
+    "startAudit": "Start your free audit",
+    "whatsAppReply": "We'll reply on WhatsApp within 2 hours.",
+    "whatNext": "What happens next?"
+  }
+}

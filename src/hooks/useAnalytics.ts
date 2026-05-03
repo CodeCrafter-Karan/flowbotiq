@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { trackPageView } from '../lib/analytics';
+import { trackPageView, trackEvent } from '../lib/analytics';
 
 /**
  * Hook to automatically track page views on route changes
@@ -29,8 +29,10 @@ export function useEngagementTracking() {
         const eventName = target.getAttribute('data-event');
         const eventCategory = target.getAttribute('data-event-category') || 'engagement';
         const eventLabel = target.getAttribute('data-event-label') || 'unknown';
-        
-        // Fire event (tracking would happen here)
+
+        if (eventName) {
+          trackEvent(eventName, eventCategory, eventLabel);
+        }
       }
     };
 

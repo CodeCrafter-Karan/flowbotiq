@@ -5,51 +5,52 @@ import { SEO } from '../lib/seo';
 const plans = [
   {
     name: 'Starter',
-    tagline: 'Get your first digital system in place',
+    tagline: 'Build your first polished system',
     price: '₹15,000',
     from: true,
     features: [
       '5-page website OR single Excel automation',
       'Mobile responsive design',
-      'Contact form integration',
-      '1 month of post-delivery support',
-      'Basic on-page SEO',
+      'Contact form + WhatsApp integration',
+      '1 month post-delivery support',
+      'On-page SEO foundation',
       'Google Analytics setup',
     ],
     notIncluded: [
-      'Custom integrations or APIs',
+      'Custom APIs or integrations',
       'Power Platform apps',
-      'Ongoing maintenance retainer',
+      'Dedicated retainer',
     ],
     cta: 'Get Started',
-    color: 'border-dark-200',
+    style: 'bg-white border border-dark-200 shadow-[0_20px_60px_rgba(15,23,42,0.08)]',
+    accent: 'text-blue-600 bg-blue-50',
     popular: false,
   },
   {
     name: 'Growth',
-    tagline: 'Full digital setup for a scaling business',
+    tagline: 'A complete digital setup for growth',
     price: '₹45,000',
     from: true,
     features: [
       '10-page website + one automation workflow',
       '2 Power Automate flows',
       'WhatsApp & contact form integration',
-      '3 months of post-delivery support',
-      'Advanced SEO + Google My Business',
+      '3 months post-delivery support',
+      'Advanced SEO + business listing',
       'Monthly performance report',
-      'Staff training (1 session)',
     ],
     notIncluded: [
       'Dedicated support manager',
       'Custom Power App development',
     ],
     cta: 'Start Now — Most Popular',
-    color: 'border-accent',
+    style: 'bg-gradient-to-br from-indigo-600 to-primary-500 text-white shadow-[0_25px_70px_rgba(79,70,229,0.2)]',
+    accent: 'text-white bg-white/10',
     popular: true,
   },
   {
     name: 'Scale',
-    tagline: 'Complete digital transformation',
+    tagline: 'Enterprise-grade workflow transformation',
     price: '₹1,20,000',
     from: true,
     features: [
@@ -57,95 +58,84 @@ const plans = [
       'Custom Power App or dashboard',
       '5+ automated workflows',
       'Priority support (48-hr response)',
-      'Quarterly strategy review call',
-      'Full documentation & team training',
-      'Dedicated project manager',
+      'Quarterly strategy review',
+      'Project manager included',
     ],
     notIncluded: [],
     cta: "Let's Build Together",
-    color: 'border-dark-200',
+    style: 'bg-white border border-dark-200 shadow-[0_20px_60px_rgba(15,23,42,0.08)]',
+    accent: 'text-primary-600 bg-primary-50',
     popular: false,
   },
 ];
 
 const faqs = [
-  { q: 'Do prices include GST?', a: 'All prices shown are exclusive of GST (18%). Final invoice will include GST as applicable.' },
-  { q: 'What\'s the payment structure?', a: '50% upfront to start, 50% on delivery. For larger projects, we can discuss milestone-based payments.' },
-  { q: 'How long does a typical project take?', a: 'Starter: 1–2 weeks. Growth: 3–5 weeks. Scale: 6–10 weeks. Exact timelines are confirmed during scoping.' },
-  { q: 'What if I need something not listed?', a: "Book a free audit call — we scope custom projects all the time. We'll send a detailed proposal within 24 hours." },
-  { q: 'Do you offer a maintenance plan after delivery?', a: 'Yes. Monthly retainer plans start at ₹3,000/month and include bug fixes, minor updates, and priority support.' },
-  { q: 'Is there a refund policy?', a: 'We deliver against a signed scope document. If we don\'t deliver what was agreed, we fix it at no extra charge. We don\'t offer refunds on completed work.' },
+  { q: 'Do prices include GST?', a: 'All prices are exclusive of GST (18%). Final invoice includes GST as applicable.' },
+  { q: 'What is the payment structure?', a: '50% upfront, 50% on delivery. For larger scope we can do milestone payments.' },
+  { q: 'How long does a typical project take?', a: 'Starter: 1–2 weeks. Growth: 3–5 weeks. Scale: 6–10 weeks. Exact timelines are scoped after your audit.' },
+  { q: 'Can I customize a package?', a: 'Yes. Book the free audit and we will design a package for your exact needs.' },
+  { q: 'Do you offer maintenance after delivery?', a: 'Yes — retainers start at ₹3,000/month for updates, fixes, and priority support.' },
 ];
 
 export default function Pricing() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
     <div className="min-h-screen bg-white">
       <SEO
         title="Transparent Pricing - Website, Automation & Power Apps"
-        description="Simple, honest pricing for business automation, Excel VBA, Power Platform, and website development. No hidden fees, money-back guarantee."
+        description="Simple, honest pricing for business automation, Excel VBA, Power Platform, and website development. No hidden fees."
         canonical="/pricing"
       />
-      {/* Header */}
-      <div className="bg-dark-950 pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-block px-3 py-1 bg-accent/10 text-accent text-sm font-semibold rounded-full mb-4">
+
+      <section className="relative overflow-hidden bg-dark-950 pt-24 pb-20">
+        <div className="absolute inset-x-0 top-10 h-96 bg-gradient-to-b from-primary-700/20 to-transparent blur-3xl" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-accent/15 px-4 py-2 text-sm font-semibold text-accent shadow-sm shadow-accent/10 mb-4">
             Transparent Pricing
-          </div>
-          <h1 className="font-syne text-4xl sm:text-5xl font-extrabold text-white mb-3">
-            Honest pricing. No surprises.
+          </span>
+          <h1 className="font-syne text-5xl sm:text-6xl font-extrabold text-white leading-tight mb-5">
+            Pricing that tells the truth.
           </h1>
-          <p className="text-dark-400 text-lg max-w-xl mx-auto">
-            Every project is scoped before we quote. These are starting prices for common packages.
+          <p className="mx-auto max-w-3xl text-lg text-dark-300 leading-relaxed">
+            Choose the package that matches your business stage. Every quote starts with a free audit, so you won’t pay for anything you don’t need.
           </p>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Plans */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {plans.map((plan, i) => (
-            <div
-              key={i}
-              className={`relative rounded-2xl border-2 p-8 ${plan.color} ${
-                plan.popular ? 'shadow-2xl shadow-accent/10 bg-dark-950' : 'bg-white hover:shadow-lg'
-              } transition-all`}
-            >
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid gap-8 xl:grid-cols-3">
+          {plans.map(plan => (
+            <div key={plan.name} className={`rounded-[32px] p-8 transition-transform duration-300 hover:-translate-y-1 ${plan.style}`}>
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-coral-500 text-white text-xs font-bold px-4 py-1 rounded-full">
+                <div className="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white mb-6">
                   Most Popular
                 </div>
               )}
+              <div className="mb-4">
+                <p className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${plan.accent}`}>{plan.name}</p>
+              </div>
+              <div className="mb-2">
+                <p className="text-4xl sm:text-5xl font-bold leading-tight">{plan.price}</p>
+                <p className="text-sm uppercase tracking-[0.25em] text-dark-300">{plan.from ? 'starting from' : 'flat fee'}</p>
+              </div>
+              <p className="text-sm text-dark-400 mb-8">{plan.tagline}</p>
 
-              <div className={`text-xs font-bold uppercase tracking-wider mb-2 ${plan.popular ? 'text-accent' : 'text-dark-500'}`}>
-                {plan.name}
-              </div>
-              <div className={`font-syne font-extrabold text-3xl sm:text-4xl mb-1 ${plan.popular ? 'text-white' : 'text-dark-950'}`}>
-                {plan.price}
-              </div>
-              <div className={`text-xs mb-1 ${plan.popular ? 'text-dark-500' : 'text-dark-400'}`}>
-                {plan.from ? 'starting from' : ''}
-              </div>
-              <p className={`text-sm mb-6 ${plan.popular ? 'text-dark-400' : 'text-dark-600'}`}>
-                {plan.tagline}
-              </p>
-
-              <div className="space-y-2.5 mb-6">
-                {plan.features.map(f => (
-                  <div key={f} className="flex items-start gap-2.5 text-sm">
-                    <CheckCircle size={15} className={`mt-0.5 shrink-0 ${plan.popular ? 'text-accent' : 'text-green-500'}`} />
-                    <span className={plan.popular ? 'text-dark-300' : 'text-dark-700'}>{f}</span>
+              <div className="space-y-3 mb-8">
+                {plan.features.map(feature => (
+                  <div key={feature} className="flex items-start gap-3 text-sm text-dark-700">
+                    <CheckCircle size={18} className="mt-1 text-primary-500" />
+                    <span>{feature}</span>
                   </div>
                 ))}
               </div>
 
               {plan.notIncluded.length > 0 && (
-                <div className="space-y-2 mb-6 opacity-50">
-                  {plan.notIncluded.map(f => (
-                    <div key={f} className="flex items-start gap-2.5 text-sm">
-                      <X size={15} className={`mt-0.5 shrink-0 ${plan.popular ? 'text-dark-500' : 'text-dark-400'}`} />
-                      <span className={`line-through ${plan.popular ? 'text-dark-500' : 'text-dark-400'}`}>{f}</span>
+                <div className="mb-8 rounded-3xl bg-dark-950/5 p-4 text-sm text-dark-500 space-y-3">
+                  {plan.notIncluded.map(item => (
+                    <div key={item} className="flex items-start gap-3">
+                      <X size={16} className="mt-1 text-dark-400" />
+                      <span>{item}</span>
                     </div>
                   ))}
                 </div>
@@ -153,68 +143,47 @@ export default function Pricing() {
 
               <a
                 href="/contact"
-                className={`block text-center py-3 rounded-xl font-semibold text-sm transition-all ${
-                  plan.popular
-                    ? 'bg-accent hover:bg-accent-600 text-white'
-                    : 'bg-dark-950 hover:bg-dark-800 text-white'
-                }`}
+                className={`inline-flex w-full items-center justify-center gap-2 rounded-3xl px-6 py-4 text-sm font-semibold transition ${plan.popular ? 'bg-white text-dark-950 hover:bg-white/90' : 'bg-dark-950 text-white hover:bg-dark-900'}`}
               >
                 {plan.cta}
+                <ArrowRight size={16} />
               </a>
             </div>
           ))}
         </div>
 
-        {/* Not sure */}
-        <div className="bg-dark-50 border border-dark-200 rounded-2xl p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-16">
-          <div>
-            <h3 className="font-syne font-bold text-dark-950 text-xl mb-1">Not sure which plan fits?</h3>
-            <p className="text-dark-600 text-sm">Let's talk for 15 minutes — no pitch, just honest advice about what would help your business most.</p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+        <div className="mt-20 rounded-[32px] border border-dark-200 bg-gradient-to-r from-blue-50 via-white to-coral-50 p-10 shadow-[0_30px_80px_rgba(15,23,42,0.05)]">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+            <div className="max-w-2xl">
+              <p className="text-sm uppercase tracking-[0.28em] text-primary-600 font-semibold mb-3">Need a custom quote?</p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-dark-950 leading-tight">We can tailor a package for your exact operations.</h2>
+            </div>
             <a
               href="/contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-accent-600 text-white font-semibold text-sm rounded-xl transition-all"
+              className="inline-flex items-center gap-2 rounded-3xl bg-primary-600 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-primary-600/20 hover:bg-primary-700 transition-all"
             >
-              Book Free Call <ArrowRight size={14} />
-            </a>
-            <a
-              href="https://wa.me/919876543210?text=Hi%2C%20I%27m%20looking%20at%20your%20pricing%20and%20want%20honest%20advice%20on%20the%20right%20plan%20for%20my%20business"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold text-sm rounded-xl transition-all"
-            >
-              Chat on WhatsApp
+              Book a free audit
+              <ArrowRight size={16} />
             </a>
           </div>
         </div>
 
-        {/* FAQ */}
-        <div className="max-w-2xl mx-auto">
-          <h2 className="font-syne font-bold text-dark-950 text-2xl mb-6 text-center">Pricing FAQs</h2>
-          <div className="space-y-2">
-            {faqs.map((faq, i) => (
-              <div key={i} className="border border-dark-200 rounded-xl overflow-hidden">
-                <button
-                  className="w-full flex items-center justify-between px-5 py-4 text-left bg-white hover:bg-dark-50 transition-colors"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                >
-                  <span className="font-medium text-dark-900 text-sm">{faq.q}</span>
-                  <ChevronDown
-                    size={16}
-                    className={`text-dark-500 shrink-0 transition-transform ${openFaq === i ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {openFaq === i && (
-                  <div className="px-5 pb-4 text-sm text-dark-600 leading-relaxed border-t border-dark-100 bg-white">
-                    {faq.a}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+        <div className="mt-20 grid gap-6 lg:grid-cols-2">
+          {faqs.map((faq, idx) => (
+            <div key={faq.q} className="rounded-3xl border border-dark-200 bg-white p-6 shadow-sm">
+              <button
+                type="button"
+                onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                className="flex w-full items-center justify-between text-left gap-4 text-dark-950"
+              >
+                <span className="font-semibold">{faq.q}</span>
+                <ChevronDown className={`transition-transform ${openFaq === idx ? 'rotate-180' : ''}`} />
+              </button>
+              {openFaq === idx && <p className="mt-4 text-sm text-dark-600 leading-relaxed">{faq.a}</p>}
+            </div>
+          ))}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

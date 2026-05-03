@@ -105,7 +105,7 @@ export default function PricingCalculator() {
           <label className="block text-sm font-semibold text-dark-700 mb-4">
             Quantity
             <span className="ml-1 text-dark-400">
-              <HelpCircle size={14} className="inline" title="Number of modules/apps" />
+              <HelpCircle size={14} className="inline" aria-label="Number of modules/apps" role="img" />
             </span>
           </label>
           <div className="flex items-center gap-4">

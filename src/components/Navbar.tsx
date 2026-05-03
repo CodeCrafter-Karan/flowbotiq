@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown, Zap } from 'lucide-react';
 
 const navLinks = [
@@ -34,21 +34,23 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-dark-200' : 'bg-transparent'
+        scrolled
+          ? 'bg-white/80 backdrop-blur-xl shadow-lg border-b border-dark-100'
+          : 'bg-transparent'
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 lg:h-18">
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-            <Zap size={16} className="text-white" />
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 lg:h-20">
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary-500/30 transition-all">
+            <Zap size={20} className="text-white" />
           </div>
-          <span className="font-syne font-800 text-lg text-dark-950">
-            OpsForge<span className="text-accent">.</span>
+          <span className="font-syne font-900 text-xl bg-gradient-to-r from-dark-950 to-primary-600 bg-clip-text text-transparent">
+            Flowbotiq
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-1">
+        <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) =>
             link.children ? (
               <div
@@ -57,17 +59,22 @@ export default function Navbar() {
                 onMouseEnter={() => setServicesOpen(true)}
                 onMouseLeave={() => setServicesOpen(false)}
               >
-                <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-dark-700 hover:text-accent transition-colors rounded-lg hover:bg-accent-50">
+                <button className="flex items-center gap-2 px-1 py-2 text-sm font-600 text-dark-700 hover:text-primary-600 transition-colors duration-200 group">
                   {link.label}
-                  <ChevronDown size={14} className={`transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform duration-300 ${
+                      servicesOpen ? 'rotate-180' : ''
+                    }`}
+                  />
                 </button>
                 {servicesOpen && (
-                  <div className="absolute top-full left-0 mt-1 w-52 bg-white rounded-xl shadow-xl border border-dark-200 py-1.5 z-50">
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-dark-100 py-3 z-50 animate-fade-in-down">
                     {link.children.map((child) => (
                       <Link
                         key={child.label}
                         to={child.href}
-                        className="block px-4 py-2.5 text-sm text-dark-700 hover:text-accent hover:bg-accent-50 transition-colors"
+                        className="block px-5 py-3 text-sm font-500 text-dark-700 hover:text-primary-600 hover:bg-primary-50 transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl"
                       >
                         {child.label}
                       </Link>
@@ -79,18 +86,19 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 to={link.href}
-                className="px-3 py-2 text-sm font-medium text-dark-700 hover:text-accent transition-colors rounded-lg hover:bg-accent-50"
+                className="text-sm font-600 text-dark-700 hover:text-primary-600 transition-colors duration-200 relative group"
               >
                 {link.label}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-500 to-primary-600 group-hover:w-full transition-all duration-300" />
               </Link>
             )
           )}
         </div>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-4">
           <Link
             to="/contact"
-            className="px-4 py-2 text-sm font-semibold text-white bg-accent hover:bg-accent-600 transition-all rounded-lg shadow-sm hover:shadow-accent/20 hover:shadow-md"
+            className="px-6 py-2.5 text-sm font-700 text-white bg-gradient-to-r from-primary-500 to-primary-600 hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-200 rounded-xl"
           >
             Get Free Audit
           </Link>
@@ -98,8 +106,11 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <button
-          className="lg:hidden p-2 rounded-lg text-dark-700 hover:bg-dark-100"
+          className="lg:hidden p-2.5 rounded-lg text-dark-700 hover:bg-dark-100 transition-colors"
           onClick={() => setOpen(!open)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -107,41 +118,49 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden bg-white border-b border-dark-200 shadow-lg">
-          <div className="px-4 py-3 space-y-1">
-            {navLinks.map((link) => (
-              <div key={link.label}>
+        <div className="lg:hidden fixed inset-0 z-50">
+          <button
+            type="button"
+            className="absolute inset-0 bg-dark-950/40 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+            aria-label="Close navigation menu"
+          />
+          <div id="mobile-menu" className="relative bg-white/96 backdrop-blur-xl border border-dark-100 shadow-2xl animate-fade-in-down mx-4 my-4 rounded-3xl overflow-hidden">
+            <div className="px-4 py-4 space-y-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
+              {navLinks.map((link) => (
+                <div key={link.label}>
+                  <Link
+                    to={link.href || '/'}
+                    className="block px-4 py-3 text-sm font-semibold text-dark-700 hover:text-primary-600 hover:bg-primary-50 rounded-2xl transition-colors duration-150"
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                  {link.children && (
+                    <div className="pl-4 space-y-1 mt-1">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          to={child.href}
+                          className="block px-4 py-2.5 text-sm text-dark-600 hover:text-primary-600 hover:bg-primary-50 rounded-2xl transition-colors duration-150"
+                          onClick={() => setOpen(false)}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              <div className="pt-3 pb-1 border-t border-dark-200">
                 <Link
-                  to={link.href || '/'}
-                  className="block px-3 py-2.5 text-sm font-medium text-dark-700 hover:text-accent hover:bg-accent-50 rounded-lg transition-colors"
+                  to="/contact"
+                  className="block w-full text-center px-4 py-3 text-sm font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl transition-all duration-200"
                   onClick={() => setOpen(false)}
                 >
-                  {link.label}
+                  Get Free Audit
                 </Link>
-                {link.children && (
-                  <div className="pl-4 space-y-1">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.label}
-                        to={child.href}
-                        className="block px-3 py-2 text-sm text-dark-600 hover:text-accent hover:bg-accent-50 rounded-lg transition-colors"
-                        onClick={() => setOpen(false)}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
               </div>
-            ))}
-            <div className="pt-2 pb-1">
-              <Link
-                to="/contact"
-                className="block w-full text-center px-4 py-2.5 text-sm font-semibold text-white bg-accent hover:bg-accent-600 rounded-lg transition-colors"
-                onClick={() => setOpen(false)}
-              >
-                Get Free Audit
-              </Link>
             </div>
           </div>
         </div>

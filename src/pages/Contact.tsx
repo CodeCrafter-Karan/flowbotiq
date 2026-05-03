@@ -12,7 +12,7 @@ const challenges = [
 ];
 
 const magnets = [
-  { title: 'GST Invoice Generator (Excel)', desc: 'Auto-generates invoices from data sheet', icon: '📊' },
+  { title: 'GST Invoice Generator (Excel)', desc: 'Auto-generates invoices from your data sheet', icon: '📊' },
   { title: 'Automation Readiness Checklist', desc: '20 signs your business is ready for automation', icon: '✅' },
   { title: 'Power Automate Starter Pack', desc: '5 ready-to-import flows for SMBs', icon: '⚡' },
   { title: 'Website Launch Checklist', desc: '30 things to check before going live', icon: '📋' },
@@ -29,11 +29,9 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone || !selectedChallenge) return;
-    
+
     setIsLoading(true);
-    
     try {
-      // Save to Supabase
       await saveContactSubmission({
         name,
         phone,
@@ -43,10 +41,8 @@ export default function Contact() {
     } catch (error) {
       console.error('Failed to save contact:', error);
     }
-    
+
     setStep('success');
-    
-    // Redirect to WhatsApp
     const message = encodeURIComponent(`Hi, I just submitted the audit form. I need help with: ${selectedChallenge}. My name is ${name}.`);
     setTimeout(() => {
       window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
@@ -55,228 +51,236 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-dark-950 text-white overflow-hidden">
       <SEO
         title="Free Business Process Audit - Schedule Your Consultation"
         description="Get a free 15-minute audit of your business operations. Understand bottlenecks and get an honest recommendation on automation and workflow optimization."
         canonical="/contact"
       />
-      <div className="bg-dark-950 pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
-            <div className="inline-block px-3 py-1 bg-accent/10 text-accent text-sm font-semibold rounded-full mb-4">
-              Free Process Audit
-            </div>
-            <h1 className="font-syne text-4xl sm:text-5xl font-extrabold text-white mb-3">
-              Let's talk about your business.
-            </h1>
-            <p className="text-dark-400 text-lg">
-              15 minutes. No pitch. Just an honest look at what would help most — and whether we're the right fit.
-            </p>
-          </div>
-        </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Form */}
-          <div>
-            {step === 'form' ? (
-              <form onSubmit={handleSubmit} className="bg-white border border-dark-200 rounded-2xl p-8">
-                <h2 className="font-syne font-bold text-dark-950 text-xl mb-1">Start your free audit</h2>
-                <p className="text-dark-500 text-sm mb-6">We'll reply on WhatsApp within 2 hours.</p>
+      <section className="relative overflow-hidden bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950 pt-24 pb-20">
+        <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-primary-500/20 blur-3xl" />
+        <div className="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-coral-500/10 blur-3xl" />
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 20% 20%, rgba(46,117,255,0.16), transparent 40%), radial-gradient(circle at 80% 80%, rgba(255,77,109,0.1), transparent 45%)',
+          }}
+        />
 
-                <div className="space-y-5">
-                  <div>
-                    <label className="block text-sm font-medium text-dark-700 mb-1.5">Your name</label>
-                    <input
-                      type="text"
-                      required
-                      value={name}
-                      onChange={e => setName(e.target.value)}
-                      placeholder="Rajesh Sharma"
-                      className="w-full px-4 py-3 border border-dark-200 rounded-xl text-dark-900 placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent text-sm transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-dark-700 mb-1.5">WhatsApp number</label>
-                    <input
-                      type="tel"
-                      required
-                      value={phone}
-                      onChange={e => setPhone(e.target.value)}
-                      placeholder="+91 98765 43210"
-                      className="w-full px-4 py-3 border border-dark-200 rounded-xl text-dark-900 placeholder-dark-400 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent text-sm transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-dark-700 mb-2">What's your biggest operational challenge?</label>
-                    <div className="space-y-2">
-                      {challenges.map(challenge => (
-                        <label
-                          key={challenge}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all ${
-                            selectedChallenge === challenge
-                              ? 'border-accent bg-accent/5 text-accent'
-                              : 'border-dark-200 text-dark-700 hover:border-dark-300'
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            name="challenge"
-                            value={challenge}
-                            checked={selectedChallenge === challenge}
-                            onChange={() => setSelectedChallenge(challenge)}
-                            className="sr-only"
-                          />
-                          <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                            selectedChallenge === challenge ? 'border-accent' : 'border-dark-300'
-                          }`}>
-                            {selectedChallenge === challenge && (
-                              <div className="w-2 h-2 rounded-full bg-accent" />
-                            )}
-                          </div>
-                          <span className="text-sm font-medium">{challenge}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-dark-700 mb-2">
-                      Want a free resource while we connect? <span className="text-dark-400 font-normal">(optional)</span>
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {magnets.map(m => (
-                        <label
-                          key={m.title}
-                          className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border cursor-pointer transition-all text-sm ${
-                            selectedMagnet === m.title
-                              ? 'border-accent bg-accent/5'
-                              : 'border-dark-200 hover:border-dark-300'
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            name="magnet"
-                            checked={selectedMagnet === m.title}
-                            onChange={() => setSelectedMagnet(m.title)}
-                            className="sr-only"
-                          />
-                          <span className="text-base">{m.icon}</span>
-                          <span className="text-dark-700 font-medium leading-tight">{m.title}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={!name || !phone || !selectedChallenge || isLoading}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 bg-accent hover:bg-accent-600 disabled:bg-dark-300 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all text-sm"
-                  >
-                    {isLoading ? 'Saving...' : 'Send & Open WhatsApp'} {!isLoading && <ArrowRight size={15} />}
-                  </button>
-
-                  <p className="text-center text-xs text-dark-400">
-                    We'll message you on WhatsApp within 2 hours. No spam, ever.
-                  </p>
-                </div>
-              </form>
-            ) : (
-              <div className="bg-white border border-dark-200 rounded-2xl p-10 text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle size={32} className="text-green-600" />
-                </div>
-                <h2 className="font-syne font-bold text-dark-950 text-xl mb-2">You're all set, {name.split(' ')[0]}!</h2>
-                <p className="text-dark-600 text-sm mb-4">
-                  We're opening WhatsApp now. Reply to start your free process audit.
-                </p>
-                <p className="text-dark-500 text-xs">
-                  Didn't get redirected?{' '}
-                  <a
-                    href="https://wa.me/919876543210"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-accent underline"
-                  >
-                    Click here to open WhatsApp
-                  </a>
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Info sidebar */}
-          <div className="space-y-6">
-            {/* What happens next */}
-            <div className="bg-dark-50 border border-dark-200 rounded-2xl p-6">
-              <h3 className="font-syne font-bold text-dark-950 mb-4">What happens next?</h3>
-              <div className="space-y-4">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 items-center">
+            <div className="xl:col-span-7 space-y-8">
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary-500/15 px-4 py-2 text-sm font-semibold text-primary-200 shadow-sm shadow-primary-500/10">
+                Free Process Audit
+              </span>
+              <h1 className="font-syne text-5xl sm:text-6xl xl:text-7xl font-extrabold leading-tight text-white">
+                Let’s map your business and stop the manual work.
+              </h1>
+              <p className="max-w-2xl text-lg text-dark-300 sm:text-xl leading-relaxed">
+                Book a free 15-minute audit. We’ll pinpoint the biggest bottleneck and tell you exactly what to fix first — no fluff, no hard sell.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { num: '1', title: 'We reply on WhatsApp', desc: 'Within 2 hours of your submission (Mon–Sat, 9am–7pm)' },
-                  { num: '2', title: 'Free 15-min audit call', desc: 'We understand your operations and pinpoint the biggest bottleneck' },
-                  { num: '3', title: 'Honest recommendation', desc: 'We tell you exactly what to do — even if it\'s not us. No pitch.' },
-                  { num: '4', title: 'Detailed proposal', desc: 'If there\'s a fit, we send a scoped proposal within 24 hours' },
-                ].map(step => (
-                  <div key={step.num} className="flex gap-3">
-                    <div className="w-7 h-7 rounded-full bg-accent text-white text-xs font-bold flex items-center justify-center shrink-0 font-syne">
-                      {step.num}
-                    </div>
-                    <div>
-                      <div className="font-medium text-dark-900 text-sm">{step.title}</div>
-                      <div className="text-dark-500 text-xs leading-relaxed">{step.desc}</div>
-                    </div>
+                  { label: '15-min audit', value: 'Free' },
+                  { label: 'WhatsApp follow-up', value: 'Fast reply' },
+                  { label: 'No pitch', value: 'Honest advice' },
+                ].map(item => (
+                  <div key={item.label} className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <p className="text-sm uppercase tracking-[0.22em] text-primary-200 mb-2">{item.label}</p>
+                    <p className="font-semibold text-white text-lg">{item.value}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Contact details */}
-            <div className="bg-white border border-dark-200 rounded-2xl p-6">
-              <h3 className="font-syne font-bold text-dark-950 mb-4">Reach us directly</h3>
-              <div className="space-y-3 text-sm">
-                <a href="mailto:hello@opsforge.in" className="flex items-center gap-3 text-dark-700 hover:text-accent transition-colors">
-                  <Mail size={15} className="text-accent shrink-0" />
-                  hello@opsforge.in
-                </a>
-                <a href="tel:+919876543210" className="flex items-center gap-3 text-dark-700 hover:text-accent transition-colors">
-                  <Phone size={15} className="text-accent shrink-0" />
-                  +91 98765 43210
-                </a>
-                <div className="flex items-start gap-3 text-dark-700">
-                  <MapPin size={15} className="text-accent shrink-0 mt-0.5" />
-                  Pune, Maharashtra, India
+            <div className="xl:col-span-5">
+              <div className="rounded-[36px] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-primary-500/10 backdrop-blur-xl">
+                <div className="mb-8">
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary-200 mb-3">Start your audit</p>
+                  <h2 className="font-syne text-3xl font-bold text-white leading-tight">
+                    Fill in a few details, and we’ll take care of the rest.
+                  </h2>
                 </div>
-                <div className="flex items-center gap-3 text-dark-700">
-                  <Clock size={15} className="text-accent shrink-0" />
-                  Mon–Sat, 9am–7pm IST
-                </div>
+
+                {step === 'form' ? (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-dark-100">Your full name</label>
+                      <input
+                        type="text"
+                        required
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        placeholder="Rajesh Sharma"
+                        className="w-full rounded-3xl border border-white/10 bg-dark-950/80 px-4 py-3 text-sm text-white placeholder-dark-400 outline-none transition-all focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-dark-100">WhatsApp number</label>
+                      <input
+                        type="tel"
+                        required
+                        value={phone}
+                        onChange={e => setPhone(e.target.value)}
+                        placeholder="+91 98765 43210"
+                        className="w-full rounded-3xl border border-white/10 bg-dark-950/80 px-4 py-3 text-sm text-white placeholder-dark-400 outline-none transition-all focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+                      />
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-sm text-dark-100">
+                        <span className="font-medium">Main challenge</span>
+                        <span className="text-dark-400">Choose one</span>
+                      </div>
+                      <div className="grid grid-cols-1 gap-3">
+                        {challenges.map(challenge => (
+                          <button
+                            type="button"
+                            key={challenge}
+                            onClick={() => setSelectedChallenge(challenge)}
+                            className={`w-full rounded-3xl border px-4 py-4 text-left transition-all duration-200 ${
+                              selectedChallenge === challenge
+                                ? 'border-primary-500 bg-primary-500/10 shadow-lg shadow-primary-500/10'
+                                : 'border-white/10 bg-dark-950/90 hover:border-white/20'
+                            }`}
+                          >
+                            <span className={`block text-sm font-semibold ${selectedChallenge === challenge ? 'text-white' : 'text-dark-100'}`}>
+                              {challenge}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-sm text-dark-100">
+                        <span className="font-medium">Free resource</span>
+                        <span className="text-dark-400">Optional</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {magnets.map(m => (
+                          <button
+                            key={m.title}
+                            type="button"
+                            onClick={() => setSelectedMagnet(m.title)}
+                            className={`w-full rounded-3xl border p-4 text-left transition-all duration-200 ${
+                              selectedMagnet === m.title
+                                ? 'border-primary-500 bg-primary-500/10 shadow-lg shadow-primary-500/10'
+                                : 'border-white/10 bg-dark-950/90 hover:border-white/20'
+                            }`}
+                          >
+                            <div className="flex items-start gap-3">
+                              <span className="text-2xl">{m.icon}</span>
+                              <div>
+                                <p className={`text-sm font-semibold ${selectedMagnet === m.title ? 'text-white' : 'text-dark-100'}`}>{m.title}</p>
+                                <p className="text-xs text-dark-400 leading-relaxed">{m.desc}</p>
+                              </div>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={!name || !phone || !selectedChallenge || isLoading}
+                      className="flex w-full items-center justify-center gap-2 rounded-3xl bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-primary-500/20 transition-all hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {isLoading ? 'Saving details...' : 'Send & Open WhatsApp'}
+                      {!isLoading && <ArrowRight size={16} />}
+                    </button>
+
+                    <p className="text-center text-xs text-dark-400">
+                      We'll message you on WhatsApp within 2 hours. No spam, ever.
+                    </p>
+                  </form>
+                ) : (
+                  <div className="rounded-3xl border border-white/10 bg-white/5 p-10 text-center">
+                    <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-3xl bg-primary-500/15 text-primary-400">
+                      <CheckCircle size={30} />
+                    </div>
+                    <h2 className="font-syne text-3xl font-bold text-white mb-4">You're all set, {name.split(' ')[0]}!</h2>
+                    <p className="text-dark-300 mb-6">We're opening WhatsApp now. Reply to start your free process audit.</p>
+                    <a
+                      href="https://wa.me/919876543210"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 rounded-3xl bg-primary-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-600"
+                    >
+                      Open WhatsApp
+                      <ArrowRight size={16} />
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Prefer WhatsApp */}
-            <a
-              href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20book%20a%20free%20process%20audit"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 bg-[#25D366]/10 border border-[#25D366]/30 rounded-2xl hover:bg-[#25D366]/15 transition-colors"
-            >
-              <div className="w-10 h-10 bg-[#25D366] rounded-xl flex items-center justify-center shrink-0">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                </svg>
+            <div className="space-y-6">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-primary-500/10 backdrop-blur-xl">
+                <h3 className="font-syne text-2xl font-bold text-white mb-5">What happens next?</h3>
+                <div className="space-y-4 text-sm text-dark-300">
+                  {[
+                    { num: '1', title: 'We reply on WhatsApp', desc: 'Within 2 hours of your submission (Mon–Sat, 9am–7pm)' },
+                    { num: '2', title: 'Free 15-min audit call', desc: 'We understand your operations and pinpoint the biggest bottleneck' },
+                    { num: '3', title: 'Honest recommendation', desc: 'We tell you exactly what to do — even if it\'s not us. No pitch.' },
+                    { num: '4', title: 'Detailed proposal', desc: 'If there\'s a fit, we send a scoped proposal within 24 hours' },
+                  ].map(step => (
+                    <div key={step.num} className="flex gap-4">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-3xl bg-primary-500 text-white font-syne font-bold">{step.num}</div>
+                      <div>
+                        <div className="font-semibold text-white">{step.title}</div>
+                        <div className="text-dark-300 leading-relaxed">{step.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div>
-                <div className="font-semibold text-dark-950 text-sm">Prefer WhatsApp?</div>
-                <div className="text-dark-600 text-xs">Chat with us — we reply in under 2 hours</div>
+
+              <div className="rounded-3xl border border-white/10 bg-dark-950 p-8 shadow-2xl shadow-black/20">
+                <h3 className="font-syne text-2xl font-bold text-white mb-5">Reach us directly</h3>
+                <div className="space-y-4 text-sm text-dark-300">
+                  <a href="mailto:hello@flowbotiq.in" className="flex items-center gap-3 hover:text-white transition-colors">
+                    <Mail size={16} className="text-primary-400" />
+                    hello@flowbotiq.in
+                  </a>
+                  <a href="tel:+919876543210" className="flex items-center gap-3 hover:text-white transition-colors">
+                    <Phone size={16} className="text-primary-400" />
+                    +91 98765 43210
+                  </a>
+                  <div className="flex items-start gap-3 text-dark-300">
+                    <MapPin size={16} className="text-primary-400 mt-1" />
+                    Pune, Maharashtra, India
+                  </div>
+                  <div className="flex items-center gap-3 text-dark-300">
+                    <Clock size={16} className="text-primary-400" />
+                    Mon–Sat, 9am–7pm IST
+                  </div>
+                </div>
               </div>
-            </a>
+
+              <a
+                href="https://wa.me/919876543210?text=Hi%2C%20I%20want%20to%20book%20a%20free%20process%20audit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 rounded-3xl border border-[#25D366]/40 bg-[#25D366]/10 p-5 transition-all hover:bg-[#25D366]/15"
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#25D366] text-white shadow-lg">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="font-semibold text-white">Prefer WhatsApp?</div>
+                  <div className="text-dark-300 text-sm">Chat with us — we reply in under 2 hours.</div>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

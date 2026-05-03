@@ -13,9 +13,9 @@ export function initializeGoogleAnalytics(gaId: string) {
   document.head.appendChild(script);
 
   // Initialize gtag
-  window.dataLayer = window.dataLayer || [];
+  (window as any).dataLayer = (window as any).dataLayer || [];
   function gtag(...args: any[]) {
-    window.dataLayer.push(arguments);
+    (window as any).dataLayer.push(args);
   }
   
   (window as any).gtag = gtag;

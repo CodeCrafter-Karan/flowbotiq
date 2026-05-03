@@ -7,7 +7,7 @@ const categories = ['All', 'Excel Mastery', 'Power Platform', 'Business Automati
 const posts = [
   {
     title: 'How to Automate MIS Reports in Excel (No VBA Knowledge Needed)',
-    excerpt: 'Step-by-step guide to building fully automated monthly reports using Excel formulas and Power Query — no coding required.',
+    excerpt: 'Build fully automated monthly reports using Excel formulas and Power Query — no coding required.',
     category: 'Excel Mastery',
     readTime: '8 min read',
     date: 'Apr 28, 2025',
@@ -17,7 +17,7 @@ const posts = [
   },
   {
     title: 'What is Power Automate and How Can a Small Business Use It in 2025?',
-    excerpt: 'A plain-English guide to Microsoft Power Automate — what it does, how much it costs, and 5 ways an Indian SMB can use it today.',
+    excerpt: 'A plain-English guide to Microsoft Power Automate — what it does, how much it costs, and 5 use cases for Indian SMBs.',
     category: 'Power Platform',
     readTime: '6 min read',
     date: 'Apr 22, 2025',
@@ -27,7 +27,7 @@ const posts = [
   },
   {
     title: 'How Much Does a Business Website Cost in India in 2025? (Honest Breakdown)',
-    excerpt: 'We break down the real cost of building a business website in India — freelancer vs agency vs DIY builders. No fluff.',
+    excerpt: 'A real cost breakdown for business websites in India — freelancer vs agency vs DIY builders.',
     category: 'Website & Digital',
     readTime: '7 min read',
     date: 'Apr 18, 2025',
@@ -37,7 +37,7 @@ const posts = [
   },
   {
     title: '5 Signs Your Business Is Ready for Workflow Automation',
-    excerpt: 'Not sure if automation is right for you? Answer these 5 questions and find out exactly where to start.',
+    excerpt: 'Not sure if automation is right for you? Answer these questions and find your best starting point.',
     category: 'Business Automation',
     readTime: '5 min read',
     date: 'Apr 14, 2025',
@@ -47,7 +47,7 @@ const posts = [
   },
   {
     title: 'Excel VBA Tutorial: Auto-Generate GST Invoices in Under 10 Seconds',
-    excerpt: 'Full walkthrough: build a VBA macro that generates professional GST invoices from a data sheet — complete with download.',
+    excerpt: 'Full walkthrough: build a VBA macro that generates GST invoices from your data sheet.',
     category: 'Excel Mastery',
     readTime: '12 min read',
     date: 'Apr 10, 2025',
@@ -57,7 +57,7 @@ const posts = [
   },
   {
     title: 'Power Apps vs Custom Website: What Does Your Business Actually Need?',
-    excerpt: 'Decision guide with comparison table. Find out which solution fits your use case, budget, and team — without the jargon.',
+    excerpt: 'A decision guide with a comparison table for the right solution based on use case, budget, and team.',
     category: 'Power Platform',
     readTime: '6 min read',
     date: 'Apr 5, 2025',
@@ -67,7 +67,7 @@ const posts = [
   },
   {
     title: 'How a 3-Person CA Firm Cut Reporting Time by 80% With Excel Automation',
-    excerpt: 'A real story from Pune: how we helped a CA firm eliminate manual report compilation and reclaim 6 hours every week.',
+    excerpt: 'A real story from Pune: how a CA firm eliminated manual report compilation and reclaimed 6 hours every week.',
     category: 'Business Automation',
     readTime: '5 min read',
     date: 'Mar 30, 2025',
@@ -77,7 +77,7 @@ const posts = [
   },
   {
     title: 'Top 10 Free Microsoft 365 Tools Indian SMBs Are Not Using (But Should)',
-    excerpt: 'If you pay for Microsoft 365, you\'re sitting on tools that most businesses don\'t even open. Here are the 10 most valuable ones.',
+    excerpt: 'If you pay for Microsoft 365, you are sitting on unused tools. Here are the 10 most valuable ones.',
     category: 'Power Platform',
     readTime: '9 min read',
     date: 'Mar 25, 2025',
@@ -98,128 +98,103 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [search, setSearch] = useState('');
 
-  const filtered = posts.filter(p => {
-    const matchCat = activeCategory === 'All' || p.category === activeCategory;
-    const matchSearch = p.title.toLowerCase().includes(search.toLowerCase()) || p.excerpt.toLowerCase().includes(search.toLowerCase());
-    return matchCat && matchSearch;
+  const filtered = posts.filter(post => {
+    const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
+    const matchesSearch = post.title.toLowerCase().includes(search.toLowerCase()) || post.excerpt.toLowerCase().includes(search.toLowerCase());
+    return matchesCategory && matchesSearch;
   });
 
-  const featured = filtered.find(p => p.featured);
-  const rest = filtered.filter(p => !p.featured);
+  const featured = filtered.find(post => post.featured) || posts[0];
+  const rest = filtered.filter(post => post.slug !== featured.slug);
 
   return (
     <div className="min-h-screen bg-white">
       <SEO
         title="The Ops Playbook - Business Automation & Excel Tips"
-        description="Learn Excel automation, Power Platform, workflow automation, and website development for Indian SMBs. Read actionable guides and case studies."
+        description="Actionable guides on Excel automation, Power Platform, workflow automation, and website systems for Indian SMBs."
         canonical="/blog"
         keywords="Excel VBA tutorial, Power Automate guide, business automation, workflow automation, excel tips, power platform"
       />
-      {/* Header */}
-      <div className="bg-dark-950 pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
-            <div className="inline-block px-3 py-1 bg-accent/10 text-accent text-sm font-semibold rounded-full mb-4">
-              The Ops Playbook
+
+      <section className="relative overflow-hidden bg-dark-950 pt-24 pb-20">
+        <div className="absolute inset-x-0 top-10 h-96 bg-gradient-to-b from-accent/20 to-transparent blur-3xl" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-accent/15 px-4 py-2 text-sm font-semibold text-accent shadow-sm shadow-accent/10 mb-4">
+            The Ops Playbook
+          </span>
+          <h1 className="font-syne text-5xl sm:text-6xl font-extrabold text-white leading-tight mb-5">
+            Business playbooks for smarter teams.
+          </h1>
+          <p className="mx-auto max-w-3xl text-lg text-dark-300 leading-relaxed">
+            Learn the exact systems, automations, and website decisions that help Indian SMBs reduce effort and grow faster.
+          </p>
+        </div>
+      </section>
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
+        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] items-start">
+          <div className="rounded-[32px] overflow-hidden border border-dark-200 shadow-[0_30px_80px_rgba(15,23,42,0.08)]">
+            <img src={featured.image} alt={featured.title} className="h-96 w-full object-cover" />
+            <div className="bg-white p-10">
+              <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${catColors[featured.category]}`}>{featured.category}</span>
+              <h2 className="mt-6 text-4xl font-bold text-dark-950 leading-tight">{featured.title}</h2>
+              <p className="mt-4 text-dark-600 leading-relaxed">{featured.excerpt}</p>
+              <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-dark-500">
+                <span>{featured.date}</span>
+                <span>•</span>
+                <span className="inline-flex items-center gap-2"><Clock size={14} />{featured.readTime}</span>
+              </div>
+              <a href={`/blog/${featured.slug}`} className="mt-8 inline-flex items-center gap-2 rounded-3xl bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-600 transition-all shadow-lg shadow-accent/20">
+                Read full story <ArrowRight size={16} />
+              </a>
             </div>
-            <h1 className="font-syne text-4xl sm:text-5xl font-extrabold text-white mb-3">
-              Playbooks for growing businesses
-            </h1>
-            <p className="text-dark-400 text-lg">
-              Practical guides on automation, Excel, Power Platform, and digital systems for Indian SMBs.
-            </p>
           </div>
-        </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Filters */}
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
-          <div className="flex flex-wrap gap-2">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                  activeCategory === cat
-                    ? 'bg-accent text-white'
-                    : 'bg-dark-100 text-dark-600 hover:bg-dark-200'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-          <div className="relative">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-400" />
-            <input
-              type="text"
-              placeholder="Search articles..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="pl-9 pr-4 py-2 border border-dark-200 rounded-lg text-sm text-dark-700 placeholder-dark-400 focus:outline-none focus:border-accent w-48"
-            />
-          </div>
-        </div>
+          <div className="space-y-6">
+            <div className="rounded-[32px] border border-dark-200 bg-dark-50 p-6">
+              <h3 className="text-lg font-semibold text-dark-950 mb-4">Filter the playbook</h3>
+              <div className="flex flex-wrap gap-2">
+                {categories.map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition ${activeCategory === cat ? 'bg-accent text-white' : 'bg-white text-dark-700 hover:bg-dark-100'}`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-        {/* Featured post */}
-        {featured && (
-          <a href={`/blog/${featured.slug}`} className="group block mb-8">
-            <div className="bg-dark-50 border border-dark-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 md:flex">
-              <div className="md:w-1/2 h-56 md:h-auto relative overflow-hidden">
-                <img
-                  src={featured.image}
-                  alt={featured.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            <div className="rounded-[32px] border border-dark-200 bg-white p-6 shadow-[0_20px_50px_rgba(15,23,42,0.06)]">
+              <label className="text-sm font-semibold text-dark-900">Search articles</label>
+              <div className="mt-3 relative">
+                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-dark-400" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  placeholder="Search by topic or keyword"
+                  className="w-full rounded-3xl border border-dark-200 bg-white px-12 py-3 text-sm text-dark-900 outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
                 />
               </div>
-              <div className="md:w-1/2 p-8 flex flex-col justify-center">
-                <span className={`inline-block px-2.5 py-1 text-xs font-semibold rounded-full mb-3 ${catColors[featured.category]}`}>
-                  {featured.category}
-                </span>
-                <h2 className="font-syne font-bold text-2xl text-dark-950 mb-3 leading-snug group-hover:text-accent transition-colors">
-                  {featured.title}
-                </h2>
-                <p className="text-dark-600 text-sm leading-relaxed mb-4">{featured.excerpt}</p>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 text-xs text-dark-500">
-                    <span>{featured.date}</span>
-                    <span>·</span>
-                    <span className="flex items-center gap-1"><Clock size={12} />{featured.readTime}</span>
-                  </div>
-                  <span className="inline-flex items-center gap-1 text-accent text-sm font-semibold group-hover:gap-2 transition-all">
-                    Read <ArrowRight size={14} />
-                  </span>
-                </div>
-              </div>
             </div>
-          </a>
-        )}
+          </div>
+        </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {rest.map(post => (
-            <a key={post.slug} href={`/blog/${post.slug}`} className="group bg-white border border-dark-200 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300">
-              <div className="h-44 overflow-hidden relative">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 left-3">
-                  <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${catColors[post.category]}`}>
-                    {post.category}
-                  </span>
-                </div>
+            <a key={post.slug} href={`/blog/${post.slug}`} className="group block overflow-hidden rounded-[32px] border border-dark-200 bg-white shadow-sm transition hover:shadow-lg">
+              <div className="h-56 overflow-hidden">
+                <img src={post.image} alt={post.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               </div>
-              <div className="p-5">
-                <h3 className="font-syne font-bold text-dark-950 text-base leading-snug mb-2 group-hover:text-accent transition-colors line-clamp-2">
-                  {post.title}
-                </h3>
-                <p className="text-dark-500 text-xs leading-relaxed mb-4 line-clamp-2">{post.excerpt}</p>
-                <div className="flex items-center justify-between text-xs text-dark-400">
+              <div className="p-6">
+                <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${catColors[post.category]}`}>{post.category}</span>
+                <h3 className="mt-4 text-lg font-semibold text-dark-950 leading-snug">{post.title}</h3>
+                <p className="mt-3 text-sm text-dark-500 leading-relaxed">{post.excerpt}</p>
+                <div className="mt-5 flex items-center justify-between text-xs text-dark-400">
                   <span>{post.date}</span>
-                  <span className="flex items-center gap-1"><Clock size={11} />{post.readTime}</span>
+                  <span className="inline-flex items-center gap-1"><Clock size={12} />{post.readTime}</span>
                 </div>
               </div>
             </a>
@@ -227,24 +202,20 @@ export default function Blog() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-20 text-dark-500">
-            <p className="font-syne font-semibold text-dark-900 mb-1">No articles found</p>
-            <p className="text-sm">Try a different category or search term.</p>
+          <div className="rounded-[32px] border border-dark-200 bg-dark-50 p-12 text-center text-dark-500">
+            <p className="font-semibold text-dark-900 mb-2">No articles found</p>
+            <p>Try another category or search keyword.</p>
           </div>
         )}
 
-        {/* Lead magnet banner */}
-        <div className="mt-16 bg-dark-950 rounded-2xl p-8 sm:p-12 text-center">
-          <h3 className="font-syne font-bold text-white text-2xl mb-2">Download the Free GST Invoice Template</h3>
-          <p className="text-dark-400 mb-6">Auto-generates invoices from your data. Used by 500+ Indian businesses.</p>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-600 text-white font-semibold rounded-xl transition-all"
-          >
-            Download Free Template <ArrowRight size={15} />
+        <div className="rounded-[32px] border border-dark-200 bg-gradient-to-r from-primary-50 via-white to-coral-50 p-10 text-center shadow-[0_30px_80px_rgba(15,23,42,0.05)]">
+          <h2 className="text-3xl sm:text-4xl font-bold text-dark-950 mb-4">Free GST invoice template</h2>
+          <p className="text-dark-600 mb-6 max-w-2xl mx-auto">Download a ready-to-use invoice template that auto-generates GST invoices from your Excel data.</p>
+          <a href="/contact" className="inline-flex items-center gap-2 rounded-3xl bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-600 transition-all">
+            Download free template <ArrowRight size={16} />
           </a>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
